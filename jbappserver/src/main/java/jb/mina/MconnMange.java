@@ -19,6 +19,7 @@ public final class MconnMange {
 					GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
 					conf.setMaxTotal(20);
 					conf.setMaxIdle(10);
+					conf.setTestOnBorrow(true);
 					PooledConnectionFactory pooledConnection = new PooledConnectionFactory();
 					/*ObjectSerializationCodecFactory factory = new ObjectSerializationCodecFactory();
 					factory.setDecoderMaxObjectSize(Integer.MAX_VALUE);
@@ -32,7 +33,8 @@ public final class MconnMange {
 					pooledConnection.setHostName(strs[0]);
 					pooledConnection.setPort(Integer.parseInt(strs[1]));
 					pooledConnection.setIoHandler(new MinaConnection());
-					pool = new GenericObjectPool<IoSession>(pooledConnection, conf);				
+					pool = new GenericObjectPool<IoSession>(pooledConnection, conf);
+					
 				}
 			}
 		}

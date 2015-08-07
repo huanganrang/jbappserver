@@ -1,6 +1,7 @@
 package jb.mina;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 
@@ -16,8 +17,12 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PooledConnectionFactory extends BasePooledObjectFactory<IoSession>{
+	
+	public Logger logger = LoggerFactory.getLogger(PooledConnectionFactory.class);
     private String hostName;
     private int port;
     private int connectionCount;
@@ -26,6 +31,7 @@ public class PooledConnectionFactory extends BasePooledObjectFactory<IoSession>{
     private int idleTime; //秒
     private ProtocolCodecFilter protocolCodecFilter;
     private IoHandler ioHandler;
+    private static ExecutorService ex = Executors.newCachedThreadPool();
 
     public String getHostName(){
         return hostName;
@@ -98,7 +104,7 @@ public class PooledConnectionFactory extends BasePooledObjectFactory<IoSession>{
         connector.getSessionConfig().setBothIdleTime(idleTime);
         connector.getSessionConfig().setTcpNoDelay(true);
         connector.getFilterChain().addLast("codec", protocolCodecFilter);
-        connector.getFilterChain().addLast("threadPool", new ExecutorFilter(Executors.newCachedThreadPool()));
+        connector.getFilterChain().addLast("threadPool", new ExecutorFilter(ex));
         connector.setHandler(ioHandler);
         String hostPort = Application.getString(Constants.SYSTEM_TCP_URL);
 		String[] strs = hostPort.split("[:;]");
@@ -108,6 +114,7 @@ public class PooledConnectionFactory extends BasePooledObjectFactory<IoSession>{
             throw new TimeoutException();
         }
         IoSession ioSession = future.getSession();
+        logger.info("建立了session，        ioSession");
         return ioSession;
     }
 
@@ -115,6 +122,7 @@ public class PooledConnectionFactory extends BasePooledObjectFactory<IoSession>{
     @SuppressWarnings("rawtypes")
 	@Override
     public void destroyObject(PooledObject p) throws Exception{
+        logger.info("我要关闭了哦，        ioSession");
         IoSession ioSession = (IoSession)p.getObject();
         ioSession.close(false);
     }
@@ -125,6 +133,11 @@ public class PooledConnectionFactory extends BasePooledObjectFactory<IoSession>{
 		return new DefaultPooledObject(ioSession);
 	}
 
+	public boolean validateObject(PooledObject<IoSession> p){
+		IoSession ioSession = (IoSession)p.getObject();
+		if(ioSession.isClosing()||!ioSession.isConnected())return false;
+		return true;		
+	}
 
 
 }
