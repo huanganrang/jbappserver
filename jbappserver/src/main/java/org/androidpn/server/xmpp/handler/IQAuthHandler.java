@@ -127,6 +127,7 @@ public class IQAuthHandler extends IQHandler {
                     throw new UnauthorizedException("Invalid username: "
                             + username, e);
                 }
+                session.setSessionData("username", username);
                 //username = username.toLowerCase();
 
                 // Verify that username and password are correct

@@ -458,6 +458,7 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 		List<UserGroup> groups=(List<UserGroup>)session.getSessionData("groups");
 		if(groups == null){
 			try {
+				//帐号取用户组  变小写了
 				String username = session.getUsername();
 				try {
 					groups = JbApi.getGroups(username);

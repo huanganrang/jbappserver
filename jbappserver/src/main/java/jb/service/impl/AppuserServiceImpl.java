@@ -39,8 +39,9 @@ public class AppuserServiceImpl implements AppuserServiceI {
 		for(ClientSession cs : sessions){
 			String uname = null;
 			try {
-				uname = cs.getUsername();
-			} catch (UserNotFoundException e) {
+				//uname = cs.getUsername();
+				uname = (String)cs.getSessionData("username");
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -58,7 +59,7 @@ public class AppuserServiceImpl implements AppuserServiceI {
 			u = new Appuser();
 			try {
 				u.setId(s.getUsername());
-				u.setUsername(s.getUsername());
+				u.setUsername((String)s.getSessionData("username"));
 				u.setFromIp(s.getHostName());
 				u.setId(s.getStreamID());
 				List<UserGroup> groups = ((List<UserGroup>)s.getSessionData("groups"));
