@@ -51,6 +51,12 @@ public interface AppServiceI {
 	public List<Map<String,String>> getUidValues(String[] uids);
 	
 	/**
+	 * 设置测点值
+	 * @return
+	 */
+	public List<Map<String, String>> setUidValues(String[] uids,String command,String[] values,String userName,String password);
+	
+	/**
 	 * 事件确认
 	 * @param id
 	 * @param remark

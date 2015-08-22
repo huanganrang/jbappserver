@@ -59,5 +59,8 @@ public interface Constants {
 	 * TCP 協議IP 端口
 	 */
 	public static String SYSTEM_TCP_URL = "SV140";
+	
+	
+	public static final String DATE_FORMAT_FOR_ENTITY = "yyyy-MM-dd HH:mm:ss";
 
 }

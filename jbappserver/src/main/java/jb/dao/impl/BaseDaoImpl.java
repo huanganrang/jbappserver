@@ -2,15 +2,18 @@ package jb.dao.impl;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import jb.dao.BaseDaoI;
+import jb.model.IEntity;
 
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +35,9 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 	@Override
 	public Serializable save(T o) {
 		if (o != null) {
+			if(o instanceof IEntity){
+				((IEntity) o).setAddtime(new Date());
+			}
 			return this.getCurrentSession().save(o);
 		}
 		return null;
@@ -239,4 +245,46 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 		return (BigInteger) q.uniqueResult();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql2Map(String sql) {
+		SQLQuery q = this.getCurrentSession().createSQLQuery(sql);
+		q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);  
+		return q.list();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql2Map(String sql, int page, int rows) {
+		SQLQuery q = this.getCurrentSession().createSQLQuery(sql);
+		q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP); 
+		return q.setFirstResult((page - 1) * rows).setMaxResults(rows).list();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql2Map(String sql, Map<String, Object> params) {
+		SQLQuery q = this.getCurrentSession().createSQLQuery(sql);
+		q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);  
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				q.setParameter(key, params.get(key));
+			}
+		}
+		return q.list();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Map> findBySql2Map(String sql, Map<String, Object> params,
+			int page, int rows) {
+		SQLQuery q = this.getCurrentSession().createSQLQuery(sql);
+		q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);  
+		if (params != null && !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				q.setParameter(key, params.get(key));
+			}
+		}
+		return q.setFirstResult((page - 1) * rows).setMaxResults(rows).list();
+	}
 }

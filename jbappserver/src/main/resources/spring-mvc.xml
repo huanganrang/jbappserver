@@ -41,6 +41,8 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/appClientController/**" />
+			<mvc:exclude-mapping path="/api/**" />
 			<bean class="jb.interceptors.SecurityInterceptor">
 				<!-- 不需要权限验证的地址 -->
 				<property name="excludeUrls">
@@ -69,7 +71,8 @@
 						<value>/appClientController/historyevent</value><!-- 歷史事件 -->
 						<value>/appClientController/allgroup</value><!-- 所有用戶組 -->
 						<value>/appClientController/groupperm</value><!-- 用戶組權限 -->
-						<value>/appClientController/savepermcfg</value><!-- 保存配置 -->																
+						<value>/appClientController/savepermcfg</value><!-- 保存配置 -->		
+						<value>/appClientController/*</value><!-- -->															
 					</list>
 				</property>
 			</bean>

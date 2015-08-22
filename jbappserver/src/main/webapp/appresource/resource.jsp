@@ -211,10 +211,18 @@
 				height : 450,
 				href : '${pageContext.request.contextPath}/appResourceController/editMapPage?id=' + node.id,
 				buttons : [ {
-					text : '编辑',
+					text : '取消定位',
 					handler : function() {
 						parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
 						var f = parent.$.modalDialog.handler.find('#form');
+						$(f).find('#position').val('');
+						f.submit();
+					}
+				} ,{
+					text : '编辑',
+					handler : function() {
+						parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
+						var f = parent.$.modalDialog.handler.find('#form');						
 						f.submit();
 					}
 				} ]

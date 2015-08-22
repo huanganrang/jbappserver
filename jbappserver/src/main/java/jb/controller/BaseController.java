@@ -1,10 +1,17 @@
 package jb.controller;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import jb.absx.Objectx;
 import jb.listener.Application;
+import jb.pageModel.Colum;
+import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.util.Constants;
 import jb.util.StringEscapeEditor;
@@ -74,6 +81,72 @@ public class BaseController extends Objectx {
 		}
 		ModelAndView mv = new ModelAndView();
 		return mv;
+	}
+	
+	/**
+	 * 下载表格
+	 * @param colums
+	 * @param dg
+	 * @param response
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws IOException
+	 */
+	protected void downloadTable(List<Colum> colums,DataGrid dg,HttpServletResponse response) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, IOException {
+		/*Iterator<Colum> it = colums.iterator();  
+		while(it.hasNext()) {  
+			Colum c = it.next();
+			if(c.isHidden()||"action".equals(c.getField()))
+				it.remove();
+		}  
+		XSSFWorkbook xs=new XSSFWorkbook();
+		XSSFSheet sheet=xs.createSheet("exprot data");
+		XSSFRow row=sheet.createRow((short)0);
+		short i = 0;
+		for(Colum c: colums){
+			row.createCell(i).setCellValue(c.getTitle()); 
+			i++;
+		}
+		short j = 1;
+		Object invObj = null;
+		String fileName = null;
+		for(Object o : dg.getRows()){					
+			row = sheet.createRow(j);
+			Class<?> _class = o.getClass();
+			if(F.empty(fileName))
+			fileName = _class.getName();
+			i = 0;
+			for(Colum c: colums){
+				Method method=_class.getMethod("get"+F.toUpperCaseFirst(c.getField()));
+				invObj = method.invoke(o);
+				if(invObj==null)
+					row.createCell(i).setCellValue("");
+				else
+					row.createCell(i).setCellValue(invObj.toString());	
+	        	i++;
+			}   
+			j++;
+		}
+		String mimetype = "application/x-msdownload";
+		response.setContentType(mimetype);
+		String downFileName = fileName+".xlsx";
+		String inlineType = "attachment"; // 是否内联附件
+		response.setHeader("Content-Disposition", inlineType
+		    + ";filename=\"" + downFileName + "\"");
+		OutputStream out = null;
+		try {
+			out = response.getOutputStream();
+			xs.write(out);
+		} catch (IOException e) {			
+		} finally {			
+			if (out != null)
+				out.flush();
+			if (out != null)
+				out.close();			
+		}	*/
 	}
 
 }

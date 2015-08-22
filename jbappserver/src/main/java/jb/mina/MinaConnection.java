@@ -13,7 +13,15 @@ public final class MinaConnection extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object msg) throws Exception {
 		if (msg instanceof String) {		
-			synchronized (session) {			
+			synchronized (session) {	
+				if(msg!=null){
+					String msgStr = msg.toString();
+					if(msgStr.indexOf("登录成功")>-1){
+						session.setAttribute("login",true);
+						session.notifyAll();
+						return;
+					}
+				}
 				session.setAttribute("response", msg);
 				session.notifyAll();
 			}				

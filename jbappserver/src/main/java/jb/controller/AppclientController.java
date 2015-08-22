@@ -79,11 +79,59 @@ public class AppclientController extends BaseController {
 			String password = request.getParameter("password");
 			password = password==null?"":password;
 			User user = userService.getUserByUsername(username, password);
-			if(user.getPassword().equals(password)){				
-				j.setSuccess(true);
+			if(user.getPassword().equals(password)){								
 				j.setSessionId(request.getSession().getId());
 				j.setObj(appService.getAppShowTree(username,null));
+				j.setSuccess(true);
 			}			
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		return j;
+	}
+	
+	@RequestMapping("/updatePsd")
+	@ResponseBody
+	public Json updatePsd(HttpServletRequest request){
+		Json j = new Json();
+		try{
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String newpassword = request.getParameter("newpassword");
+			password = password==null?"":password;
+			User user = userService.getUserByUsername(username, password);
+			if(user.getPassword().equals(password)){								
+				/*j.setSessionId(request.getSession().getId());
+				j.setObj(appService.getAppShowTree(username,null));*/
+				//调用接口去修改
+				j.setSuccess(true);
+			}else{
+				j.setErrorCode("E2001");
+				j.setMsg("用户名密码不正确");
+			}			
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		return j;
+	}
+	
+	@RequestMapping("/logout")
+	@ResponseBody
+	public Json logout(HttpServletRequest request){
+		Json j = new Json();
+		try{
+			
+			String sessionId = request.getParameter("sessionId");
+			j.setSuccess(true);
+			/*String username = request.getParameter("username");
+			String password = request.getParameter("password");s
+			password = password==null?"":password;
+			User user = userService.getUserByUsername(username, password);
+			if(user.getPassword().equals(password)){								
+				j.setSessionId(request.getSession().getId());
+				j.setObj(appService.getAppShowTree(username,null));
+				j.setSuccess(true);
+			}	*/		
 		}catch(Exception e){
 			rememberLog(j,e);
 		}
@@ -124,6 +172,41 @@ public class AppclientController extends BaseController {
 	        }
 			j.setObj(rs);
 			j.setSuccess(true);
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		
+		return j;
+	}
+	
+	/**
+	 * 设置测点值
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/setuid")
+	@ResponseBody
+	public Json setuid(HttpServletRequest request) {	
+		Json j = new Json();
+		try{
+			String quids = request.getParameter("quid");
+			String values = request.getParameter("value");
+			String command = request.getParameter("command");
+			String userName = request.getParameter("userName");
+			String password = request.getParameter("password");
+	        if(logger.isDebugEnabled()){
+	        	logger.debug("测点值查询quid:"+quids);
+	        }
+	        String[] _quids =  quids.split("[,;|]");
+	        String[] _values=  values.split("[,;|]");
+	        if(_quids.length == _values.length){	        
+		        List<Map<String,String>> rs = appService.setUidValues(_quids, command, _values,userName,password);
+		        if(logger.isDebugEnabled()){
+		        	logger.debug("测点结果："+JSON.toJSONString(rs));
+		        }
+				j.setObj(rs);
+				j.setSuccess(true);
+	        }
 		}catch(Exception e){
 			rememberLog(j,e);
 		}

@@ -12,6 +12,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import jb.absx.F;
 import jb.listener.Application;
 import jb.pageModel.BaseData;
 import jb.pageModel.Json;
@@ -215,7 +216,11 @@ public class AppResourceController extends BaseController {
 		baseData.setId("MP"+resource.getId());
 		baseData.setBasetypeCode("MP");
 		baseData.setName(resource.getPosition());
-		basedataService.add(baseData);
+		if(F.empty(resource.getPosition())){
+			basedataService.delete(baseData.getId());
+		}else{
+			basedataService.add(baseData);
+		}
 		j.setSuccess(true);
 		j.setMsg("编辑成功！");
 		return j;

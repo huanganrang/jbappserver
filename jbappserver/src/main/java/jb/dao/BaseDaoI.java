@@ -256,5 +256,57 @@ public interface BaseDaoI<T> {
 	 * @return 数目
 	 */
 	public BigInteger countBySql(String sql, Map<String, Object> params);
+	
+	/**
+	 * 获得结果集
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * @return 结果集
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> findBySql2Map(String sql);
+
+	/**
+	 * 获得结果集
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * @param page
+	 *            要显示第几页
+	 * @param rows
+	 *            每页显示多少条
+	 * @return 结果集
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> findBySql2Map(String sql, int page, int rows);
+
+	/**
+	 * 获得结果集
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * @param params
+	 *            参数
+	 * @return 结果集
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> findBySql2Map(String sql, Map<String, Object> params);
+
+	/**
+	 * 获得结果集
+	 * 
+	 * @param sql
+	 *            SQL语句
+	 * @param params
+	 *            参数
+	 * @param page
+	 *            要显示第几页
+	 * @param rows
+	 *            每页显示多少条
+	 * @return 结果集
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> findBySql2Map(String sql, Map<String, Object> params, int page, int rows);
 
 }

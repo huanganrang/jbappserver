@@ -15,6 +15,8 @@
 				style="padding: 1px"></div>
 			<div title="获取测点值" data-options="href:'1/queryuid.jsp'"
 				style="padding: 1px"></div>
+			<div title="设置测点属性" data-options="href:'1/setuid.jsp'"
+				style="padding: 1px"></div>					
 			<div title="曲线图" data-options="href:'1/seqchart.jsp'"
 				style="padding: 1px"></div>
 			<div title="确认事件" data-options="href:'1/sureevent.jsp'"
@@ -27,6 +29,15 @@
 				style="padding: 1px"></div>
 			<div title="推送接口" data-options="href:'1/tuisongapi.jsp'"
 				style="padding: 1px"></div>
+			<div title="注销" data-options="href:'1/logout.jsp'"
+				style="padding: 1px"></div>
+			<div title="修改密码" data-options="href:'1/updatepsd.jsp'"
+				style="padding: 1px"></div>	
+			<div title="设备属性" data-options="href:'1/equipuid.jsp'"
+				style="padding: 1px"></div>
+			<div title="运维属性" data-options="href:'1/repaireuid.jsp'"
+				style="padding: 1px"></div>	
+				
 		</div>
 	</div>
 </body>

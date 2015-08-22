@@ -62,4 +62,21 @@ public interface BasedataServiceI {
 	
 	public List<BaseData> list(String typeId);
 	
+	/**
+	 * 根据类型取基础数据
+	 * @param baseType
+	 * @return
+	 */
+	public List<BaseData> getBaseDatas(String baseType);
+	
+	
+	/**
+	 * 根据动态sql查找结果
+	 * @param sql
+	 * @param params
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> getSelectMapList(String sql,Map params);
+	
 }

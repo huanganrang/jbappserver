@@ -116,6 +116,7 @@ public class BasedataServiceImpl implements BasedataServiceI {
 	@Override
 	public void delete(String id) {
 		Tbasedata basedata = basedataDao.get(Tbasedata.class, id);
+		if(basedata == null) return;
 		basedata.getBaseType();
 		basedataDao.delete(basedata);
 		refeshAppVariable(basedata);
@@ -164,5 +165,34 @@ public class BasedataServiceImpl implements BasedataServiceI {
 		}
 		return rs;
 	}
-
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List<BaseData> getBaseDatas(String baseType) {
+		List<BaseData> bl = new ArrayList<BaseData>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = " from Tbasedata t ";
+		String joinHql = " left join t.baseType type ";
+		BaseData baseData = new BaseData();
+		baseData.setBasetypeCode(baseType);
+		String where = whereHql(baseData, params);
+		List l = basedataDao.find(hql + joinHql + where + " order by t.seq asc" , params);
+		if (l != null && l.size() > 0) {
+			Tbasedata temp = null;
+			for (Object t : l) {
+				temp = (Tbasedata)((Object[])t)[0];
+				BaseData b = new BaseData();
+				BeanUtils.copyProperties(temp, b);
+				b.setCodeName(temp.getBaseType().getName());
+				b.setBasetypeCode(temp.getBaseType().getCode());
+				bl.add(b);
+			}
+		}
+		return bl;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List<Map> getSelectMapList(String sql, Map params) {	
+		return basedataDao.findBySql2Map(sql);
+	}
 }

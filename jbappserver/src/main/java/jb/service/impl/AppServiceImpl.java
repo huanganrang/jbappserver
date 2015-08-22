@@ -360,6 +360,18 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			map.put("UID", uid);
 			map.put("Properties", "Status");
 			list.add(map);
+			map = new HashMap<String,String>();
+			map.put("UID", uid);
+			map.put("Properties", "Level");
+			list.add(map);
+			map = new HashMap<String,String>();
+			map.put("UID", uid);
+			map.put("Properties", "LimitLower");
+			list.add(map);
+			map = new HashMap<String,String>();
+			map.put("UID", uid);
+			map.put("Properties", "LimitUpper");
+			list.add(map);
 		}
 		Map<String,Object> requestMap = new HashMap<String,Object>();
 		requestMap.put("Action", "Q");
@@ -409,6 +421,12 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 						map.put("value", json.getString("Value"));
 					}else if("Status".equals(properties)){
 						map.put("status", json.getString("Value"));
+					}else if("Level".equals(properties)){
+						map.put("level", json.getString("Value"));
+					}else if("LimitLower".equals(properties)){
+						map.put("limitLower", json.getString("Value"));
+					}else if("LimitUpper".equals(properties)){
+						map.put("limitUpper", json.getString("Value"));
 					}
 				}
 				list.addAll(temp.values());
@@ -417,7 +435,89 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 		return list;
 	}
 
-
+	@Override
+	public List<Map<String, String>> setUidValues(String[] uids,String command,String[] values,String userName,String password) {
+		
+		Map<String,String> map = null;
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		int i = 0;
+		for(String uid : uids){
+			map = new HashMap<String,String>();
+			map.put("UID", uid);
+			map.put("Properties", command);
+			map.put("Value", values[i]);
+			map.put("Action", "S");
+			list.add(map);
+			i++;
+		}
+		Map<String,Object> requestMap = new HashMap<String,Object>();
+		requestMap.put("Action", "S");
+		requestMap.put("Data", list);
+		MinaRequest request  = new MinaRequest(JSON.toJSONString(requestMap));	
+		IoSession session = null;
+		try {
+			session = (IoSession) MconnMange.getPool().borrowObject();
+			synchronized (session) {
+				try {
+					System.out.println(request.getRequestText());
+					if(password == null)password="";
+					if(session.getAttribute("login") == null){
+						String login ="{ \"Action\": \"I\", \"Data\": [{ \"User\": \""+userName+"\", \"Password\": \""+password+"\"}] }";
+						session.write(login);
+					}
+					session.write(request.getRequestText());
+					session.wait(15000);
+				} catch (InterruptedException e) {
+					logger.error("tcp kingweb error", e);
+					e.printStackTrace();
+				}
+			}	
+			request.setResponse((String)session.getAttribute("response"));
+		} catch (Exception e1) {
+			logger.error("tcp kingweb error", e1);
+			throw new RuntimeException(e1);
+		}finally{
+			if(session!=null){
+				MconnMange.getPool().returnObject(session);
+			}
+		}	
+		String response = request.getResponse();
+		System.out.println(response);
+		/*JSONObject jb = JSONObject.parseObject(response);
+		list = new ArrayList<Map<String,String>>();
+		if(jb!=null){			
+			JSONArray jarray = jb.getJSONArray("Data");
+			if(jarray!=null){
+				Map<String,Map<String,String>> temp = new HashMap<String,Map<String,String>>();
+				String uid = null;
+				String properties = null;
+				for(Object t : jarray){
+					JSONObject json = (JSONObject)t;
+					uid = json.getString("UID");
+					properties = json.getString("Properties");
+					map = temp.get(uid);
+					if(map==null){
+						map = new HashMap<String,String>();
+						temp.put(uid, map);
+					}
+					map.put("uid", uid);
+					if("Value".equals(properties)){
+						map.put("value", json.getString("Value"));
+					}else if("Status".equals(properties)){
+						map.put("status", json.getString("Value"));
+					}else if("Level".equals(properties)){
+						map.put("level", json.getString("Value"));
+					}else if("LimitLower".equals(properties)){
+						map.put("limitLower", json.getString("Value"));
+					}else if("LimitUpper".equals(properties)){
+						map.put("limitUpper", json.getString("Value"));
+					}
+				}
+				list.addAll(temp.values());
+			}
+		}*/
+		return list;
+	}
 
 	@Override
 	public Map<String, Object> sureEvent(String id, String remark) {
