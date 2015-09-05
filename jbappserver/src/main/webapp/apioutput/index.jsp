@@ -37,6 +37,14 @@
 				style="padding: 1px"></div>
 			<div title="运维属性" data-options="href:'1/repaireuid.jsp'"
 				style="padding: 1px"></div>	
+			<div title="安全时段（增）" data-options="href:'1/safeadd.jsp'"
+				style="padding: 1px"></div>	
+			<div title="安全时段（删）" data-options="href:'1/safedelete.jsp'"
+				style="padding: 1px"></div>		
+			<div title="安全时段（改）" data-options="href:'1/safeedit.jsp'"
+				style="padding: 1px"></div>	
+			<div title="安全时段（查）" data-options="href:'1/safelist.jsp'"
+				style="padding: 1px"></div>					
 				
 		</div>
 	</div>

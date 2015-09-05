@@ -124,7 +124,7 @@ public class ApiJbMaintainBaseController extends BaseController {
 		Json j = new Json();
 		JbAssets jbAssets = jbAssetsService.getByUid(uid);
 		if(jbAssets != null && !F.empty(jbAssets.getId())){
-			JbMaintainBase jbMaintainBase = jbMaintainBaseService.get(jbAssets.getId());
+			JbMaintainBase jbMaintainBase = jbMaintainBaseService.getByAssetId(jbAssets.getId());
 			if(jbMaintainBase != null && !F.empty(jbMaintainBase.getId())){
 				JbRegularCheck jbRegularCheck = new JbRegularCheck();
 				jbRegularCheck.setMaintainId(jbMaintainBase.getId());

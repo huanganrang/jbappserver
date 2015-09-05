@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/appClientController/updatePsd";
+String url = request.getContextPath()+"/jbSafetimeController/delete";
 %>
 <title>Insert title here</title>
 </head>
@@ -13,7 +13,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#updatePsd_Form').form({
+		$('#safedelete_Form').form({
 			url : '<%=url%>',
 			onSubmit : function() {
 				parent.$.messager.progress({
@@ -28,7 +28,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#updatePsd_result").text(result);
+				$("#safedelete_result").text(result);
 			}
 		});
 	});
@@ -37,7 +37,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="updatePsd_Form" action="">
+			<form id="safedelete_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -48,31 +48,22 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 						<td><input name="sessionId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>username(账号)：</label></td>
-						<td><input name="username" type="text" class="span2" value="Admin"/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value=""/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>newpassword(新密码)：</label></td>
-						<td><input name="newpassword" type="text" class="span2" value=""/></td>
+						<td align="right" style="width: 180px;"><label>id(id)：</label></td>
+						<td><input name="id" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#updatePsd_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#safedelete_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="updatePsd_result">
+				<div id="safedelete_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					sessionId :有状态的http请求都需要放sessionId参数
 			</div>
 		</div>
 	</div>

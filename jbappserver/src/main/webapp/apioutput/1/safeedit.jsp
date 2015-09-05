@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="jb.model.TjbSafetime" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="jb" uri="http://www.jb.cn/jbtag"%>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/appClientController/updatePsd";
+String url = request.getContextPath()+"/jbSafetimeController/edit";
 %>
 <title>Insert title here</title>
 </head>
@@ -13,7 +17,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#updatePsd_Form').form({
+		$('#safeedit_Form').form({
 			url : '<%=url%>',
 			onSubmit : function() {
 				parent.$.messager.progress({
@@ -28,7 +32,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#updatePsd_result").text(result);
+				$("#safeedit_result").text(result);
 			}
 		});
 	});
@@ -37,7 +41,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="updatePsd_Form" action="">
+			<form id="safeedit_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -47,32 +51,40 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 						<td align="right" style="width: 180px;"><label>sessionId(sessionId)*：</label></td>
 						<td><input name="sessionId" type="text" class="span2" value=""/></td>
 					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>username(账号)：</label></td>
-						<td><input name="username" type="text" class="span2" value="Admin"/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value=""/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>newpassword(新密码)：</label></td>
-						<td><input name="newpassword" type="text" class="span2" value=""/></td>
-					</tr>
+			<tr>	
+												
+					<th>startTime(<%=TjbSafetime.ALIAS_START_TIME%>)</th>	
+					<td>
+					<input class="span2" name="startTime" type="text" onclick="WdatePicker({dateFmt:'<%=TjbSafetime.FORMAT_START_TIME%>'})"   maxlength="0" value=""/>
+					</td>	
+					<th>endTime(<%=TjbSafetime.ALIAS_END_TIME%>)</th>	
+					<td>
+					<input class="span2" name="endTime" type="text" onclick="WdatePicker({dateFmt:'<%=TjbSafetime.FORMAT_END_TIME%>'})"   maxlength="0" value=""/>
+					</td>						
+			</tr>	
+			<tr>	
+					<th>id(id)</th>	
+					<td>
+											<input class="span2" name="id" type="text" value=""/>
+					</td>								
+					<th>status(<%=TjbSafetime.ALIAS_STATUS%>)</th>	
+					<td>
+											<jb:select dataType="SS" name="status" value=""></jb:select>	
+					</td>							
+			</tr>	
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#updatePsd_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#safeedit_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="updatePsd_result">
+				<div id="safeedit_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					sessionId :有状态的http请求都需要放sessionId参数
 			</div>
 		</div>
 	</div>

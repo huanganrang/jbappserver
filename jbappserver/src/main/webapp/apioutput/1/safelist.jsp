@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/appClientController/updatePsd";
+String url = request.getContextPath()+"/api/jbSafetimeController/dataGrid";
 %>
 <title>Insert title here</title>
 </head>
@@ -13,7 +13,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#updatePsd_Form').form({
+		$('#safelist_Form').form({
 			url : '<%=url%>',
 			onSubmit : function() {
 				parent.$.messager.progress({
@@ -28,7 +28,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#updatePsd_result").text(result);
+				$("#safelist_result").text(result);
 			}
 		});
 	});
@@ -37,7 +37,7 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="updatePsd_Form" action="">
+			<form id="safelist_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -48,31 +48,37 @@ String url = request.getContextPath()+"/appClientController/updatePsd";
 						<td><input name="sessionId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>username(账号)：</label></td>
-						<td><input name="username" type="text" class="span2" value="Admin"/></td>
+						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
+						<td><input name="page" type="text" class="span2" value="1"/></td>
 					</tr>
+					
 					<tr>
-						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value=""/></td>
+						<td align="right" style="width: 180px;"><label>rows(每页数)：</label></td>
+						<td><input name="rows" type="text" class="span2" value="10"/></td>
 					</tr>
+					
 					<tr>
-						<td align="right" style="width: 180px;"><label>newpassword(新密码)：</label></td>
-						<td><input name="newpassword" type="text" class="span2" value=""/></td>
+						<td align="right" style="width: 180px;"><label>sort(排序字段)：</label></td>
+						<td><input name="sort" type="text" class="span2" value="addtime"/></td>
+					</tr>
+					
+					<tr>
+						<td align="right" style="width: 180px;"><label>order(排序方式)：</label></td>
+						<td><input name="order" type="text" class="span2" value="desc"/></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#updatePsd_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#safelist_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="updatePsd_result">
+				<div id="safelist_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					sessionId :有状态的http请求都需要放sessionId参数
 			</div>
 		</div>
 	</div>
