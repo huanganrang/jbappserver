@@ -436,7 +436,7 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 	}
 
 	@Override
-	public List<Map<String, String>> setUidValues(String[] uids,String command,String[] values,String userName,String password) {
+	public String setUidValues(String[] uids,String command,String[] values,String userName,String password) {
 		
 		Map<String,String> map = null;
 		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
@@ -463,6 +463,7 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 					if(password == null)password="";
 					if(session.getAttribute("login") == null){
 						String login ="{ \"Action\": \"I\", \"Data\": [{ \"User\": \""+userName+"\", \"Password\": \""+password+"\"}] }";
+						System.out.println(login);
 						session.write(login);
 					}
 					session.write(request.getRequestText());
@@ -516,7 +517,7 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 				list.addAll(temp.values());
 			}
 		}*/
-		return list;
+		return response;
 	}
 
 	@Override

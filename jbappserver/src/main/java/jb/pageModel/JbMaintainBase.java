@@ -19,7 +19,7 @@ public class JbMaintainBase implements java.io.Serializable {
 	private Date addtime;			
 
 	private JbRegularCheck jbRegularCheck;
-	
+	private JbRepairCheck jbRepairCheck;
 
 	public void setId(java.lang.String value) {
 		this.id = value;
@@ -100,6 +100,14 @@ public class JbMaintainBase implements java.io.Serializable {
 
 	public void setJbRegularCheck(JbRegularCheck jbRegularCheck) {
 		this.jbRegularCheck = jbRegularCheck;
+	}
+
+	public JbRepairCheck getJbRepairCheck() {
+		return jbRepairCheck;
+	}
+
+	public void setJbRepairCheck(JbRepairCheck jbRepairCheck) {
+		this.jbRepairCheck = jbRepairCheck;
 	}
 
 	

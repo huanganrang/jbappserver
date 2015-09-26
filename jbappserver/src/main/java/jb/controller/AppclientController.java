@@ -100,15 +100,28 @@ public class AppclientController extends BaseController {
 			String newpassword = request.getParameter("newpassword");
 			password = password==null?"":password;
 			User user = userService.getUserByUsername(username, password);
-			if(user.getPassword().equals(password)){								
-				/*j.setSessionId(request.getSession().getId());
-				j.setObj(appService.getAppShowTree(username,null));*/
+			if(user.getPassword().equals(password)){		
 				//调用接口去修改
-				j.setSuccess(true);
+				j.setSuccess(JbApi.updtePsd(username, newpassword));
 			}else{
 				j.setErrorCode("E2001");
 				j.setMsg("用户名密码不正确");
 			}			
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		return j;
+	}
+	
+	@RequestMapping("/getDoorList")
+	@ResponseBody
+	public Json getDoorList(HttpServletRequest request){
+		Json j = new Json();
+		try{
+			String doorNo = request.getParameter("doorNo");
+			String[] doorNos = doorNo.split("[,;]");
+			j.setObj(JbApi.getDoorList(doorNos));
+			j.setSuccess(true);
 		}catch(Exception e){
 			rememberLog(j,e);
 		}
@@ -200,9 +213,9 @@ public class AppclientController extends BaseController {
 	        String[] _quids =  quids.split("[,;|]");
 	        String[] _values=  values.split("[,;|]");
 	        if(_quids.length == _values.length){	        
-		        List<Map<String,String>> rs = appService.setUidValues(_quids, command, _values,userName,password);
+		       String rs = appService.setUidValues(_quids, command, _values,userName,password);
 		        if(logger.isDebugEnabled()){
-		        	logger.debug("测点结果："+JSON.toJSONString(rs));
+		        	logger.debug("测点结果："+rs);
 		        }
 				j.setObj(rs);
 				j.setSuccess(true);
@@ -279,7 +292,6 @@ public class AppclientController extends BaseController {
 		
 		return j;
 	}
-	
 	@RequestMapping("/sureevent")
 	@ResponseBody
 	public Json sureevent(HttpServletRequest request) {	

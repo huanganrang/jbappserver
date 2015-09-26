@@ -33,7 +33,20 @@ public abstract class JbApi {
 	    	return false;
 	    }
 	}
-	
+	public static boolean updtePsd(String username,String psd)throws IOException{
+		//登录
+		String url = Application.getString("UL101");
+		//UserName=Admin&UserPWD=
+		Map<String,String> param = new HashMap<String,String>();
+		param.put("UserName", username);
+		param.put("UserPWD",psd);
+	    String rs =WebUtils.doPost(url, param, 15000,25000);
+	    if(rs.indexOf("修改成功")>-1){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	}
 	public static List<UserGroup> getAllGroup() throws IOException{
 		 //获取所有用户组
 		 String url = Application.getString("UL002");
@@ -197,7 +210,23 @@ public abstract class JbApi {
 		rs = rs.replace("\\\"", "\"");
 		return rs;
 	}
+	public static String getDoorList(String[] doors) throws IOException{
+		String charset = "UTF-8";
+		String url = Application.getString("UL102");
+		String query = "";		
+		for(String door : doors){
+			query +="&DoorNO[]="+URLEncoder.encode(door,charset);
+		}
+		if(query.length()>0){
+			query = query.substring(1);
+		}
+		String rs = WebUtils.doPostJson(url, query);
+		rs = rs.trim();
+		rs = rs.replace("\\\"", "\"");
+		return rs;
+	}
 	
+	//DoorNO[]
 	/**
 	 * 确认事件
 	 * @param username

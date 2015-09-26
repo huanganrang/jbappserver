@@ -10,15 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import jb.absx.F;
 import jb.pageModel.Colum;
+import jb.pageModel.DataGrid;
 import jb.pageModel.JbAssets;
 import jb.pageModel.JbMaintainBase;
-import jb.pageModel.DataGrid;
 import jb.pageModel.JbRegularCheck;
+import jb.pageModel.JbRepairCheck;
 import jb.pageModel.Json;
 import jb.pageModel.PageHelper;
 import jb.service.JbAssetsServiceI;
 import jb.service.JbMaintainBaseServiceI;
 import jb.service.JbRegularCheckServiceI;
+import jb.service.JbRepairCheckServiceI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,9 @@ public class ApiJbMaintainBaseController extends BaseController {
 	private JbAssetsServiceI jbAssetsService;	
 	@Autowired
 	private JbRegularCheckServiceI jbRegularCheckService;
+	
+	@Autowired
+	private JbRepairCheckServiceI jbRepairCheckService;
 
 	/**
 	 * 跳转到JbMaintainBase管理页面
@@ -135,6 +140,13 @@ public class ApiJbMaintainBaseController extends BaseController {
 				DataGrid dataGrid = jbRegularCheckService.dataGrid(jbRegularCheck, ph);
 				if(dataGrid.getRows()!=null&&dataGrid.getRows().size()>0){
 					jbMaintainBase.setJbRegularCheck((JbRegularCheck)dataGrid.getRows().get(0));
+				}
+				JbRepairCheck jbRepairCheck = new JbRepairCheck();
+				ph.setSort("repairDate");
+				jbRepairCheck.setMaintainId(jbMaintainBase.getId());
+				dataGrid = jbRepairCheckService.dataGrid(jbRepairCheck, ph);
+				if(dataGrid.getRows()!=null&&dataGrid.getRows().size()>0){
+					jbMaintainBase.setJbRepairCheck((JbRepairCheck)dataGrid.getRows().get(0));
 				}
 			}
 			j.setObj(jbMaintainBase);

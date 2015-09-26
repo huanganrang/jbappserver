@@ -44,7 +44,9 @@
 			<div title="安全时段（改）" data-options="href:'1/safeedit.jsp'"
 				style="padding: 1px"></div>	
 			<div title="安全时段（查）" data-options="href:'1/safelist.jsp'"
-				style="padding: 1px"></div>					
+				style="padding: 1px"></div>	
+			<div title="门禁数据" data-options="href:'1/getdoorlist.jsp'"
+				style="padding: 1px"></div>							
 				
 		</div>
 	</div>

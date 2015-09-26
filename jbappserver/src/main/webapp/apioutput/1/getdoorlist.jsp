@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/appClientController/login";
+String url = request.getContextPath()+"/appClientController/getDoorList";
 %>
 <title>Insert title here</title>
 </head>
@@ -13,7 +13,7 @@ String url = request.getContextPath()+"/appClientController/login";
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#login_Form').form({
+		$('#getdoorlist_Form').form({
 			url : '<%=url%>',
 			onSubmit : function() {
 				parent.$.messager.progress({
@@ -28,7 +28,7 @@ String url = request.getContextPath()+"/appClientController/login";
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#login_result").text(result);
+				$("#getdoorlist_result").text(result);
 			}
 		});
 	});
@@ -37,35 +37,34 @@ String url = request.getContextPath()+"/appClientController/login";
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="login_Form" action="">
+			<form id="getdoorlist_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
 						<td><%=url%></td>
 					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>sessionId(sessionId)*：</label></td>
+						<td><input name="sessionId" type="text" class="span2" value=""/></td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>doorNo(,分割)：</label></td>
+						<td><input name="doorNo" type="text" class="span2" value=""/></td>
+					</tr>
 					
-					<tr>
-						<td align="right" style="width: 180px;"><label>username(账号)：</label></td>
-						<td><input name="username" type="text" class="span2" value="Admin"/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value=""/></td>
-					</tr>
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#login_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#getdoorlist_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="login_result">
+				<div id="getdoorlist_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					sessionId :有状态的http请求都需要放sessionId参数
 			</div>
 		</div>
 	</div>
