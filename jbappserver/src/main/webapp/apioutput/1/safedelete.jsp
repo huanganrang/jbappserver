@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/jbSafetimeController/delete";
+String url = request.getContextPath()+"/api/jbSafetimeController/delete";
 %>
 <title>Insert title here</title>
 </head>

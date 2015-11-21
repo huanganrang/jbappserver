@@ -48,23 +48,8 @@ String url = request.getContextPath()+"/api/jbSafetimeController/dataGrid";
 						<td><input name="sessionId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
-						<td><input name="page" type="text" class="span2" value="1"/></td>
-					</tr>
-					
-					<tr>
-						<td align="right" style="width: 180px;"><label>rows(每页数)：</label></td>
-						<td><input name="rows" type="text" class="span2" value="10"/></td>
-					</tr>
-					
-					<tr>
-						<td align="right" style="width: 180px;"><label>sort(排序字段)：</label></td>
-						<td><input name="sort" type="text" class="span2" value="addtime"/></td>
-					</tr>
-					
-					<tr>
-						<td align="right" style="width: 180px;"><label>order(排序方式)：</label></td>
-						<td><input name="order" type="text" class="span2" value="desc"/></td>
+						<td align="right" style="width: 180px;"><label>uid(uid)*：</label></td>
+						<td><input name="uid" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">

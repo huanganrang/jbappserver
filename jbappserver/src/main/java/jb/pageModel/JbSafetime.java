@@ -12,7 +12,9 @@ public class JbSafetime implements java.io.Serializable {
 	private java.lang.String id;	
 	private Date addtime;			
 	private Date startTime;			
-	private Date endTime;			
+	private Date endTime;	
+	private String startTimeStr;
+	private String endTimeStr;
 	private java.lang.String status;	
 	private java.lang.String uid;	
 
@@ -66,4 +68,21 @@ public class JbSafetime implements java.io.Serializable {
 		return this.uid;
 	}
 
+	public String getStartTimeStr() {
+		return startTimeStr;
+	}
+
+	public void setStartTimeStr(String startTimeStr) {
+		this.startTimeStr = startTimeStr;
+	}
+
+	public String getEndTimeStr() {
+		return endTimeStr;
+	}
+
+	public void setEndTimeStr(String endTimeStr) {
+		this.endTimeStr = endTimeStr;
+	}
+
+	
 }

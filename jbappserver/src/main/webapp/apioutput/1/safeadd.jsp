@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/jbSafetimeController/add";
+String url = request.getContextPath()+"/api/jbSafetimeController/add";
 %>
 <title>Insert title here</title>
 </head>
@@ -53,24 +53,27 @@ String url = request.getContextPath()+"/jbSafetimeController/add";
 					</tr>
 					<tr>	
 												
-					<th>startTime(<%=TjbSafetime.ALIAS_START_TIME%>)</th>	
+					<tr>	
+												
+					<th>startTimeStr(<%=TjbSafetime.ALIAS_START_TIME%>)</th>	
 					<td>
-					<input class="span2" name="startTime" type="text" onclick="WdatePicker({dateFmt:'<%=TjbSafetime.FORMAT_START_TIME%>'})"   maxlength="0" value=""/>
+					<input class="span2" name="startTimeStr" type="text"  value="082324"/>
 					</td>	
-					<th>endTime(<%=TjbSafetime.ALIAS_END_TIME%>)</th>	
+					<th>endTimeStr(<%=TjbSafetime.ALIAS_END_TIME%>)</th>	
 					<td>
-					<input class="span2" name="endTime" type="text" onclick="WdatePicker({dateFmt:'<%=TjbSafetime.FORMAT_END_TIME%>'})"   maxlength="0" value=""/>
+					<input class="span2" name="endTimeStr" type="text" value="122324"/>
 					</td>						
+			</tr>					
 			</tr>	
 			<tr>	
 					<th>uid(测点)</th>	
 					<td>
 											<input class="span2" name="uid" type="text" value=""/>
 					</td>								
-					<th>status(<%=TjbSafetime.ALIAS_STATUS%>，SS01启用.SS02不启用)</th>	
+					<%-- <th>status(<%=TjbSafetime.ALIAS_STATUS%>，SS01启用.SS02不启用)</th>	
 					<td>
 											<jb:select dataType="SS" name="status" value=""></jb:select>	
-					</td>							
+					</td>	 --%>						
 			</tr>	
 					<tr>
 						<td colspan="2" align="center">

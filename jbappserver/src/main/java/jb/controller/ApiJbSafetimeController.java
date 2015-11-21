@@ -8,12 +8,14 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jb.absx.F;
 import jb.pageModel.Colum;
-import jb.pageModel.JbSafetime;
 import jb.pageModel.DataGrid;
+import jb.pageModel.JbSafetime;
 import jb.pageModel.Json;
 import jb.pageModel.PageHelper;
 import jb.service.JbSafetimeServiceI;
+import jb.util.JbApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +57,14 @@ public class ApiJbSafetimeController extends BaseController {
 	@RequestMapping("/dataGrid")
 	@ResponseBody
 	public DataGrid dataGrid(JbSafetime jbSafetime, PageHelper ph) {
-		return jbSafetimeService.dataGrid(jbSafetime, ph);
+		DataGrid dg = new DataGrid();
+		try {
+			dg.setRows(JbApi.getSafeTimeList(jbSafetime.getUid()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dg;
 	}
 	/**
 	 * 获取JbSafetime数据表格excel
@@ -99,9 +108,14 @@ public class ApiJbSafetimeController extends BaseController {
 	@ResponseBody
 	public Json add(JbSafetime jbSafetime) {
 		Json j = new Json();		
-		jbSafetimeService.add(jbSafetime);
-		j.setSuccess(true);
-		j.setMsg("添加成功！");		
+		try {
+			j.setSuccess(JbApi.addSafeTime(jbSafetime.getUid(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr()));
+			j.setSuccess(true);
+			j.setMsg("添加成功！");	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
 		return j;
 	}
 
@@ -139,9 +153,17 @@ public class ApiJbSafetimeController extends BaseController {
 	@ResponseBody
 	public Json edit(JbSafetime jbSafetime) {
 		Json j = new Json();		
-		jbSafetimeService.edit(jbSafetime);
-		j.setSuccess(true);
-		j.setMsg("编辑成功！");		
+		try {
+			if(!F.empty(jbSafetime.getStatus())){
+				JbApi.setSafeTimeStatus(jbSafetime.getId(), jbSafetime.getStatus());
+			}else{
+				JbApi.editSafeTime(jbSafetime.getId(), jbSafetime.getUid(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr());
+			}
+			j.setSuccess(true);
+			j.setMsg("编辑成功！");	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
 		return j;
 	}
 
@@ -155,9 +177,13 @@ public class ApiJbSafetimeController extends BaseController {
 	@ResponseBody
 	public Json delete(String id) {
 		Json j = new Json();
-		jbSafetimeService.delete(id);
-		j.setMsg("删除成功！");
-		j.setSuccess(true);
+		try {
+			j.setSuccess(JbApi.delSafeTime(id));
+			j.setSuccess(true);
+			j.setMsg("删除成功！");	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 		return j;
 	}
 

@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-String url = request.getContextPath()+"/jbSafetimeController/edit";
+String url = request.getContextPath()+"/api/jbSafetimeController/edit";
 %>
 <title>Insert title here</title>
 </head>
@@ -53,13 +53,13 @@ String url = request.getContextPath()+"/jbSafetimeController/edit";
 					</tr>
 			<tr>	
 												
-					<th>startTime(<%=TjbSafetime.ALIAS_START_TIME%>)</th>	
+					<th>startTimeStr(<%=TjbSafetime.ALIAS_START_TIME%>)</th>	
 					<td>
-					<input class="span2" name="startTime" type="text" onclick="WdatePicker({dateFmt:'<%=TjbSafetime.FORMAT_START_TIME%>'})"   maxlength="0" value=""/>
+					<input class="span2" name="startTimeStr" type="text"  value="082324"/>
 					</td>	
-					<th>endTime(<%=TjbSafetime.ALIAS_END_TIME%>)</th>	
+					<th>endTimeStr(<%=TjbSafetime.ALIAS_END_TIME%>)</th>	
 					<td>
-					<input class="span2" name="endTime" type="text" onclick="WdatePicker({dateFmt:'<%=TjbSafetime.FORMAT_END_TIME%>'})"   maxlength="0" value=""/>
+					<input class="span2" name="endTimeStr" type="text" value="122324"/>
 					</td>						
 			</tr>	
 			<tr>	
