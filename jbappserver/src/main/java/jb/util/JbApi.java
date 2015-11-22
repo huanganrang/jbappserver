@@ -359,7 +359,11 @@ public abstract class JbApi {
 		rs = replaceSpecialChar(rs);
 		return rs.indexOf("添加成功")>-1;
 	}
-	
+
+	public static String getAllDoor(){
+		return null;
+	}
+
 	private static String to2n(int number){
 		return String.format("%02d", number); 
 	}
