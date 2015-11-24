@@ -208,18 +208,23 @@ public abstract class JbApi {
 		rs = replaceSpecialChar(rs);
 		return rs;
 	}
-	public static String getDoorList(String[] doors) throws IOException{
+	public static String getDoorList(String[] doors,String cardNO,String startDate,String endDate) throws IOException{
 		String charset = "UTF-8";
 		String url = Application.getString("UL102");
 		String query = "";		
 		for(String door : doors){
 			query +="&DoorNO[]="+URLEncoder.encode(door,charset);
 		}
+		query +="&CardNO="+URLEncoder.encode(cardNO,charset);
+		query +="&StartDate="+URLEncoder.encode(startDate,charset);
+		query +="&endTime="+URLEncoder.encode(endDate,charset);
+
 		if(query.length()>0){
 			query = query.substring(1);
 		}
 		String rs = WebUtils.doPostJson(url, query);
 		rs = replaceSpecialChar(rs);
+		rs = rs.substring(1, rs.length()-1);
 		return rs;
 	}
 	
@@ -360,8 +365,20 @@ public abstract class JbApi {
 		return rs.indexOf("添加成功")>-1;
 	}
 
-	public static String getAllDoor(){
-		return null;
+	public static String getAllDoor() throws IOException {
+		String url = Application.getString("UL017");
+		String rs = WebUtils.doGetJson(url, null);
+		rs = replaceSpecialChar(rs);
+		rs = rs.substring(1, rs.length()-1);
+		return rs;
+	}
+
+	public static String getAllCard() throws IOException {
+		String url = Application.getString("UL018");
+		String rs = WebUtils.doGetJson(url, null);
+		rs = replaceSpecialChar(rs);
+		rs = rs.substring(1, rs.length()-1);
+		return rs;
 	}
 
 	private static String to2n(int number){

@@ -98,12 +98,12 @@ public class AppclientController extends BaseController {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String newpassword = request.getParameter("newpassword");
-			password = password==null?"":password;
+			password = password == null ? "" : password;
 			User user = userService.getUserByUsername(username, password);
-			if(user.getPassword().equals(password)){		
+			if (user.getPassword().equals(password)) {
 				//调用接口去修改
 				j.setSuccess(JbApi.updtePsd(username, newpassword));
-			}else{
+			} else {
 				j.setErrorCode("E2001");
 				j.setMsg("用户名密码不正确");
 			}			
@@ -119,8 +119,38 @@ public class AppclientController extends BaseController {
 		Json j = new Json();
 		try{
 			String doorNo = request.getParameter("doorNo");
+			String cardNo = request.getParameter("cardNO");
 			String[] doorNos = doorNo.split("[,;]");
-			j.setObj(JbApi.getDoorList(doorNos));
+			String startDate = request.getParameter("startDate");
+			String endDate = request.getParameter("endDate");
+
+
+			j.setObj(JbApi.getDoorList(doorNos,cardNo,startDate,endDate));
+			j.setSuccess(true);
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		return j;
+	}
+
+	@RequestMapping("/getAllDoor")
+	@ResponseBody
+	public Json getAllDoor(){
+		Json j = new Json();
+		try{
+			j.setObj(JbApi.getAllDoor());
+			j.setSuccess(true);
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		return j;
+	}
+	@RequestMapping("/getAllCard")
+	@ResponseBody
+	public Json getAllCard(){
+		Json j = new Json();
+		try{
+			j.setObj(JbApi.getAllCard());
 			j.setSuccess(true);
 		}catch(Exception e){
 			rememberLog(j,e);

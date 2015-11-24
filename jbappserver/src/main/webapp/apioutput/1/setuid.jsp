@@ -37,7 +37,7 @@ String url = request.getContextPath()+"/appClientController/setuid";
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="setuid_Form" action="">
+			<form id="setuid_Form" action="" method="post">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -56,7 +56,7 @@ String url = request.getContextPath()+"/appClientController/setuid";
 						<td><input name="value" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>command(Level报警级别，LimitLower(下限）、LimitUpper(上限），Value（开门=1），Value（关门=0）)：</label></td>
+						<td align="right" style="width: 180px;"><br>command(Level报警级别，LimitLower(下限）、LimitUpper(上限），Value（开门=1），Value（关门=0）);</br>QkEMail(邮件=4/>5//起始时间=2015-04-10  16:54:48;周期=4天;提醒=换班前24小时提醒)：</label></td>
 						<td><input name="command" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>

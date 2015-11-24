@@ -51,7 +51,18 @@ String url = request.getContextPath()+"/appClientController/getDoorList";
 						<td align="right" style="width: 180px;"><label>doorNo(,分割)：</label></td>
 						<td><input name="doorNo" type="text" class="span2" value=""/></td>
 					</tr>
-					
+					<tr>
+						<td align="right" style="width: 180px;"><label>cardNO(,卡号)：</label></td>
+						<td><input name="cardNO" type="text" class="span2" value=""/></td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>startDate(开始时间)：</label></td>
+						<td><input name="startDate" type="text" class="span2" value="2014-08-01"/></td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>endDate(结束时间)：</label></td>
+						<td><input name="endDate" type="text" class="span2" value="2015-09-09"/></td>
+					</tr>
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"

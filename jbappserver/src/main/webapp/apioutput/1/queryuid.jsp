@@ -65,6 +65,7 @@ String url = request.getContextPath()+"/appClientController/queryuid";
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
+				comErrDevCount  通讯状态
 			</div>
 		</div>
 	</div>
