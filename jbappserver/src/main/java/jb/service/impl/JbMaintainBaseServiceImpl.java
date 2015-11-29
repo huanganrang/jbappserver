@@ -79,8 +79,10 @@ public class JbMaintainBaseServiceImpl extends BaseServiceImpl<JbMaintainBase> i
 	@Override
 	public void add(JbMaintainBase jbMaintainBase) {
 		TjbMaintainBase t = new TjbMaintainBase();
+		String uuid = UUID.randomUUID().toString();
+		jbMaintainBase.setId(uuid);
 		BeanUtils.copyProperties(jbMaintainBase, t);
-		t.setId(UUID.randomUUID().toString());
+		t.setId(uuid);
 		//t.setCreatedatetime(new Date());
 		jbMaintainBaseDao.save(t);
 	}

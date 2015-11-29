@@ -130,8 +130,10 @@ public class JbAssetsServiceImpl extends BaseServiceImpl<JbAssets> implements Jb
 	@Override
 	public void add(JbAssets jbAssets) {
 		TjbAssets t = new TjbAssets();
+		String uuid = UUID.randomUUID().toString();
+		jbAssets.setId(uuid);
 		BeanUtils.copyProperties(jbAssets, t);
-		t.setId(UUID.randomUUID().toString());
+		t.setId(uuid);
 		//t.setCreatedatetime(new Date());
 		jbAssetsDao.save(t);
 	}
