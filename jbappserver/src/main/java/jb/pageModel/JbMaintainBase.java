@@ -17,7 +17,7 @@ public class JbMaintainBase implements java.io.Serializable {
 	private Date nextCheckDate;			
 	private java.lang.String remark;	
 	private Date addtime;			
-
+	private String uid;
 	private JbRegularCheck jbRegularCheck;
 	private JbRepairCheck jbRepairCheck;
 
@@ -110,5 +110,11 @@ public class JbMaintainBase implements java.io.Serializable {
 		this.jbRepairCheck = jbRepairCheck;
 	}
 
-	
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 }

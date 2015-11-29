@@ -36,7 +36,9 @@
 			<div title="设备属性" data-options="href:'1/equipuid.jsp'"
 				style="padding: 1px"></div>
 			<div title="运维属性" data-options="href:'1/repaireuid.jsp'"
-				style="padding: 1px"></div>	
+				style="padding: 1px"></div>
+			<div title="运维属性修改" data-options="href:'1/repaireUpdate.jsp'"
+				 style="padding: 1px"></div>
 			<div title="安全时段（增）" data-options="href:'1/safeadd.jsp'"
 				style="padding: 1px"></div>	
 			<div title="安全时段（删）" data-options="href:'1/safedelete.jsp'"

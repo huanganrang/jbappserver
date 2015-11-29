@@ -377,6 +377,14 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			map.put("UID", uid);
 			map.put("Properties", "ComErrDevCount");
 			list.add(map);
+			map = new HashMap<String,String>();
+			map.put("UID", uid);
+			map.put("Properties", "LimitLower2");
+			list.add(map);
+			map = new HashMap<String,String>();
+			map.put("UID", uid);
+			map.put("Properties", "LimitUpper2");
+			list.add(map);
 		}
 		Map<String,Object> requestMap = new HashMap<String,Object>();
 		requestMap.put("Action", "Q");
@@ -434,6 +442,10 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 						map.put("limitUpper", json.getString("Value"));
 					}else if("ComErrDevCount".equals(properties)){
 						map.put("comErrDevCount", json.getString("Value"));
+					}else if("LimitLower2".equals(properties)){
+						map.put("limitLower2", json.getString("Value"));
+					}else if("LimitUpper2".equals(properties)){
+						map.put("limitUpper2", json.getString("Value"));
 					}
 				}
 				list.addAll(temp.values());

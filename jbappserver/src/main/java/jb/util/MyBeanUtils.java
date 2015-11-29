@@ -25,11 +25,15 @@ public class MyBeanUtils extends BeanUtils {
     copyProperties(source, target, editable, null, isNull);
   }
 
-  public static void copyProperties(Object source, Object target, String[] ignoreProperties, boolean isNull)
-    throws BeansException
-  {
-    copyProperties(source, target, null, ignoreProperties, isNull);
-  }
+	public static void copyProperties(Object source, Object target, String[] ignoreProperties, boolean isNull)
+			throws BeansException {
+		copyProperties(source, target, null, ignoreProperties, isNull);
+	}
+
+	public static void copyPropertiesFilterNull(Object source, Object target)
+			throws BeansException {
+		copyProperties(source, target, null, null, true);
+	}
   
   /**
    * 

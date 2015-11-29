@@ -22,6 +22,8 @@ import jb.service.JbMaintainBaseServiceI;
 import jb.service.JbRegularCheckServiceI;
 import jb.service.JbRepairCheckServiceI;
 
+import jb.util.MyBeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +64,7 @@ public class ApiJbMaintainBaseController extends BaseController {
 	/**
 	 * 获取JbMaintainBase数据表格
 	 * 
-	 * @param user
+	 * @param
 	 * @return
 	 */
 	@RequestMapping("/dataGrid")
@@ -73,7 +75,7 @@ public class ApiJbMaintainBaseController extends BaseController {
 	/**
 	 * 获取JbMaintainBase数据表格excel
 	 * 
-	 * @param user
+	 *
 	 * @return
 	 * @throws NoSuchMethodException 
 	 * @throws SecurityException 
@@ -176,8 +178,41 @@ public class ApiJbMaintainBaseController extends BaseController {
 	@RequestMapping("/edit")
 	@ResponseBody
 	public Json edit(JbMaintainBase jbMaintainBase) {
-		Json j = new Json();		
-		jbMaintainBaseService.edit(jbMaintainBase);
+		Json j = new Json();
+		if(F.empty(jbMaintainBase.getUid()))return j;
+		JbAssets jbAssets = jbAssetsService.getByUid(jbMaintainBase.getUid());
+		if(jbAssets==null||F.empty(jbAssets.getId())){
+			jbAssets = new JbAssets();
+			jbAssets.setUid(jbMaintainBase.getUid());
+			jbAssetsService.add(jbAssets);
+		}
+		JbMaintainBase jbMaintainBaseOld = jbMaintainBaseService.getByAssetId(jbAssets.getId());
+
+		if(jbMaintainBaseOld == null||F.empty(jbMaintainBaseOld.getId())){
+			jbMaintainBaseOld = new JbMaintainBase();
+			jbMaintainBaseOld.setAssetId(jbAssets.getId());
+			MyBeanUtils.copyPropertiesFilterNull(jbMaintainBase, jbMaintainBaseOld);
+			jbMaintainBaseService.add(jbMaintainBaseOld);
+		}else{
+			MyBeanUtils.copyPropertiesFilterNull(jbMaintainBase, jbMaintainBaseOld);
+			jbMaintainBaseService.edit(jbMaintainBaseOld);
+		}
+
+
+		JbRegularCheck jbRegularCheck = new JbRegularCheck();
+		jbRegularCheck.setMaintainId(jbMaintainBase.getId());
+		if(jbMaintainBase.getJbRegularCheck() != null) {
+			jbRegularCheck = jbMaintainBase.getJbRegularCheck();
+			jbRegularCheck.setMaintainId(jbMaintainBaseOld.getId());
+			jbRegularCheckService.add(jbRegularCheck);
+		}
+		if(jbMaintainBase.getJbRepairCheck() != null){
+			JbRepairCheck jbRepairCheck = jbMaintainBase.getJbRepairCheck();
+			jbRepairCheck.setMaintainId(jbMaintainBaseOld.getId());
+			jbRepairCheckService.add(jbRepairCheck);
+		}
+
+
 		j.setSuccess(true);
 		j.setMsg("编辑成功！");		
 		return j;
