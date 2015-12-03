@@ -109,7 +109,7 @@ public class ApiJbSafetimeController extends BaseController {
 	public Json add(JbSafetime jbSafetime) {
 		Json j = new Json();		
 		try {
-			j.setSuccess(JbApi.addSafeTime(jbSafetime.getUid(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr()));
+			j.setSuccess(JbApi.addSafeTime(jbSafetime.getUid(),jbSafetime.getStartWeek(),jbSafetime.getEndWeek(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr()));
 			j.setSuccess(true);
 			j.setMsg("添加成功！");	
 		} catch (IOException e) {

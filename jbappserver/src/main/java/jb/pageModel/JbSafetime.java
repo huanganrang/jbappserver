@@ -15,6 +15,8 @@ public class JbSafetime implements java.io.Serializable {
 	private Date endTime;	
 	private String startTimeStr;
 	private String endTimeStr;
+	private int startWeek;
+	private int endWeek;
 	private java.lang.String status;	
 	private java.lang.String uid;	
 
@@ -53,7 +55,23 @@ public class JbSafetime implements java.io.Serializable {
 	public void setStatus(java.lang.String status) {
 		this.status = status;
 	}
-	
+
+	public int getStartWeek() {
+		return startWeek;
+	}
+
+	public void setStartWeek(int startWeek) {
+		this.startWeek = startWeek;
+	}
+
+	public int getEndWeek() {
+		return endWeek;
+	}
+
+	public void setEndWeek(int endWeek) {
+		this.endWeek = endWeek;
+	}
+
 	public java.lang.String getStatus() {
 		return this.status;
 	}

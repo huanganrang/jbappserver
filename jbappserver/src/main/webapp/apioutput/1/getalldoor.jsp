@@ -47,10 +47,7 @@ String url = request.getContextPath()+"/appClientController/getAllDoor";
 						<td align="right" style="width: 180px;"><label>sessionId(sessionId)*：</label></td>
 						<td><input name="sessionId" type="text" class="span2" value=""/></td>
 					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>doorNo(,分割)：</label></td>
-						<td><input name="doorNo" type="text" class="span2" value=""/></td>
-					</tr>
+
 					
 					<tr>
 						<td colspan="2" align="center">

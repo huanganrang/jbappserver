@@ -52,7 +52,7 @@ String url = request.getContextPath()+"/api/jbMaintainBaseController/edit";
 						<td><input name="uid" type="text" class="span2" value=""/></td>
 					</tr>
                     <tr>
-                        <td align="right" style="width: 180px;"><label>jbRegularCheck.summary(本次巡检时间)：</label></td>
+                        <td align="right" style="width: 180px;"><label>jbRegularCheck.checkDate(本次巡检时间)：</label></td>
                         <td><input name="jbRegularCheck.checkDate" type="text" class="span2" value="2015-09-21 00:00:00"/></td>
                     </tr>
                     <tr>
