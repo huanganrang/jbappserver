@@ -45,40 +45,47 @@ String url = request.getContextPath()+"/api/jbSafetimeController/add";
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td><%=url%></td>
+						<td><%=url%>
+						</td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>sessionId(sessionId)*：</label></td>
 						<td><input name="sessionId" type="text" class="span2" value=""/></td>
 					</tr>
-					<tr>	
-												
-					<tr>	
-												
-					<th>startTimeStr(<%=TjbSafetime.ALIAS_START_TIME%>)</th>	
-					<td>
-					<input class="span2" name="startTimeStr" type="text"  value="082324"/>
-					</td>	
-					<th>endTimeStr(<%=TjbSafetime.ALIAS_END_TIME%>)</th>	
-					<td>
-					<input class="span2" name="endTimeStr" type="text" value="122324"/>
-					</td>						
-			</tr>					
-			</tr>	
-			<tr>	
-					<th>uid(测点)</th>	
-					<td>
-											<input class="span2" name="uid" type="text" value=""/>
-					</td>								
-					<%-- <th>status(<%=TjbSafetime.ALIAS_STATUS%>，SS01启用.SS02不启用)</th>	
-					<td>
-											<jb:select dataType="SS" name="status" value=""></jb:select>	
-					</td>	 --%>						
-			</tr>	
+					<tr>
+						<th>startWeek(开始周)</th>
+						<td>
+							<input class="span2" name="startWeek" type="text" value="1"/>
+						</td>
+						<th>endWeek(结束周)</th>
+						<td>
+							<input class="span2" name="endWeek" type="text" value="2"/>
+						</td>
+					</tr>
+					<tr>
+						<th>startTimeStr(<%=TjbSafetime.ALIAS_START_TIME%>)</th>
+						<td>
+							<input class="span2" name="startTimeStr" type="text" value="082324"/>
+						</td>
+						<th>endTimeStr(<%=TjbSafetime.ALIAS_END_TIME%>)</th>
+						<td>
+							<input class="span2" name="endTimeStr" type="text" value="122324"/>
+						</td>
+					</tr>
+					<tr>
+						<th>uid(测点)</th>
+						<td>
+							<input class="span2" name="uid" type="text" value=""/>
+						</td>
+						<%-- <th>status(<%=TjbSafetime.ALIAS_STATUS%>，SS01启用.SS02不启用)</th>
+                        <td>
+                                                <jb:select dataType="SS" name="status" value=""></jb:select>
+                        </td>	 --%>
+					</tr>
 					<tr>
 						<td colspan="2" align="center">
-						<input type="button"
-							value="提交" onclick="javascript:$('#safeadd_Form').submit();" /></td>
+							<input type="button"
+								   value="提交" onclick="javascript:$('#safeadd_Form').submit();"/></td>
 					</tr>
 				</table>
 			</form>
