@@ -51,7 +51,6 @@ public class ApiJbSafetimeController extends BaseController {
 	/**
 	 * 获取JbSafetime数据表格
 	 * 
-	 * @param user
 	 * @return
 	 */
 	@RequestMapping("/dataGrid")
@@ -69,7 +68,6 @@ public class ApiJbSafetimeController extends BaseController {
 	/**
 	 * 获取JbSafetime数据表格excel
 	 * 
-	 * @param user
 	 * @return
 	 * @throws NoSuchMethodException 
 	 * @throws SecurityException 
@@ -109,7 +107,7 @@ public class ApiJbSafetimeController extends BaseController {
 	public Json add(JbSafetime jbSafetime) {
 		Json j = new Json();		
 		try {
-			j.setSuccess(JbApi.addSafeTime(jbSafetime.getUid(),jbSafetime.getStartWeek(),jbSafetime.getEndWeek(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr()));
+			j.setSuccess(JbApi.addSafeTime(jbSafetime.getUid(),jbSafetime.getStartWeek(),jbSafetime.getEndWeek(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr(),jbSafetime.getDescription()));
 			j.setSuccess(true);
 			j.setMsg("添加成功！");	
 		} catch (IOException e) {
@@ -155,9 +153,9 @@ public class ApiJbSafetimeController extends BaseController {
 		Json j = new Json();		
 		try {
 			if(!F.empty(jbSafetime.getStatus())){
-				JbApi.setSafeTimeStatus(jbSafetime.getId(), jbSafetime.getStatus());
+				JbApi.setSafeTimeStatus(jbSafetime.getUid(),jbSafetime.getId(), jbSafetime.getStatus());
 			}else{
-				JbApi.editSafeTime(jbSafetime.getId(), jbSafetime.getUid(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr());
+				JbApi.editSafeTime(jbSafetime.getId(), jbSafetime.getUid(), jbSafetime.getStartTimeStr(), jbSafetime.getEndTimeStr(),jbSafetime.getStartWeek(),jbSafetime.getEndWeek(),jbSafetime.getDescription());
 			}
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");	

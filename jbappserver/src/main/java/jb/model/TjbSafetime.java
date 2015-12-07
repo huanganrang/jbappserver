@@ -50,6 +50,7 @@ public class TjbSafetime implements java.io.Serializable,IEntity{
 	private java.lang.String status;
 	//@Length(max=36)
 	private java.lang.String uid;
+
 	//columns END
 
 

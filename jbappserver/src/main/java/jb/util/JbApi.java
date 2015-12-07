@@ -303,16 +303,19 @@ public abstract class JbApi {
 			safetime.setId(temp.getIntValue("NID")+"");
 			safetime.setStartTimeStr(to2n(temp.getIntValue("NHour1"))+to2n(temp.getIntValue("NMinute1"))+to2n(temp.getIntValue("NSecond1")));
 			safetime.setEndTimeStr(to2n(temp.getIntValue("NHour2"))+to2n(temp.getIntValue("NMinute2"))+to2n(temp.getIntValue("NSecond2")));
+			safetime.setStartWeek(temp.getIntValue("NWeek1"));
+			safetime.setEndWeek(temp.getIntValue("NWeek2"));
+			safetime.setDescription(temp.getString("SDescription"));
 			safetime.setStatus(temp.getIntValue("Enabled") == 0?"SS01":"SS02");
 			resultList.add(safetime);
 		}
 		return resultList;
 	}
 	
-	public static boolean setSafeTimeStatus(String id,String status) throws IOException{
+	public static boolean setSafeTimeStatus(String uid,String id,String status) throws IOException{
 		String url = Application.getString("UL104");
 		//http://183.193.5.74:8282/api/TimeZone/UpTimeStatus/data
-		String query = "timezone[0][NID]="+id+"&timezone[0][Enabled]="+("SS01".equals(status)?0:1);
+		String query = "UID="+uid+"&timezone[0][NID]="+id+"&timezone[0][Enabled]="+("SS01".equals(status)?0:1);
 		String rs = WebUtils.doPostJson(url, query);
 		rs = replaceSpecialChar(rs);
 		return rs.indexOf("OK")>-1;
@@ -326,7 +329,7 @@ public abstract class JbApi {
 		rs = replaceSpecialChar(rs);
 		return rs.indexOf("true")>-1;
 	}
-	public static boolean addSafeTime(String uid,int startWeek,int endWeek,String starttime,String endtime) throws IOException{
+	public static boolean addSafeTime(String uid,int startWeek,int endWeek,String starttime,String endtime,String SDescription) throws IOException{
 		String url = Application.getString("UL106");
 		//http://183.193.5.74:8282/api/TimeZone/InTimeByNo/time
 		String query = "timezone[NID]=0";
@@ -338,27 +341,27 @@ public abstract class JbApi {
 		query += "&timezone[NMinute2]="+endtime.substring(2, 4);
 		query += "&timezone[NSecond1]="+starttime.substring(4, 6);
 		query += "&timezone[NSecond2]="+endtime.substring(4, 6);
-		//query += "&timezone[SDescription]:dsfasdfasd";
+		query += "&timezone[SDescription]="+SDescription;
 		query += "&timezone[BWeekRange]=1";
 		query += "&timeZonedetail[Uid]="+uid;
 		String rs = WebUtils.doPostJson(url, query);
 		rs = replaceSpecialChar(rs);
 		return rs.indexOf("添加成功")>-1;
 	}
-	public static boolean editSafeTime(String id,String uid,String starttime,String endtime) throws IOException{
+	public static boolean editSafeTime(String id,String uid,String starttime,String endtime,int startWeek,int endWeek,String SDescription) throws IOException{
 		String url = Application.getString("UL106");
 		//http://183.193.5.74:8282/api/TimeZone/InTimeByNo/time
 		String query = "timezone[NID]="+id;
-		/*query += "&timezone[NWeek1]:2";
-		query += "&timezone[NWeek2]:2";*/
+		query += "&timezone[NWeek1]="+startWeek;
+		query += "&timezone[NWeek2]="+endWeek;
 		query += "&timezone[nHour1]="+starttime.substring(0, 2);
 		query += "&timezone[nHour2]="+endtime.substring(0, 2);
 		query += "&timezone[NMinute1]="+starttime.substring(2, 4);
 		query += "&timezone[NMinute2]="+endtime.substring(2, 4);
 		query += "&timezone[NSecond1]="+starttime.substring(4, 6);
 		query += "&timezone[NSecond2]="+endtime.substring(4, 6);
-		//query += "&timezone[SDescription]:dsfasdfasd";
-		//query += "&timezone[BWeekRange]:1";
+		query += "&timezone[SDescription]="+SDescription;
+		query += "&timezone[BWeekRange]=1";
 		query += "&timeZonedetail[Uid]="+uid;
 		String rs = WebUtils.doPostJson(url, query);
 		rs = replaceSpecialChar(rs);

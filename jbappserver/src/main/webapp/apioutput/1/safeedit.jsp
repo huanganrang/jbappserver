@@ -61,7 +61,17 @@ String url = request.getContextPath()+"/api/jbSafetimeController/edit";
 					<td>
 					<input class="span2" name="endTimeStr" type="text" value="122324"/>
 					</td>						
-			</tr>	
+			</tr>
+			<tr>
+				<th>startWeek(开始周)</th>
+				<td>
+					<input class="span2" name="startWeek" type="text" value="1"/>
+				</td>
+				<th>endWeek(结束周)</th>
+				<td>
+					<input class="span2" name="endWeek" type="text" value="2"/>
+				</td>
+			</tr>
 			<tr>	
 					<th>id(id)</th>	
 					<td>
@@ -71,12 +81,24 @@ String url = request.getContextPath()+"/api/jbSafetimeController/edit";
 					<td>
 											<jb:select dataType="SS" name="status" value=""></jb:select>	
 					</td>							
-			</tr>	
-					<tr>
-						<td colspan="2" align="center">
-						<input type="button"
-							value="提交" onclick="javascript:$('#safeedit_Form').submit();" /></td>
-					</tr>
+			</tr>
+			<tr>
+				<th>description(描述)</th>
+				<td>
+					<input class="span2" name="description" type="text" value=""/>
+				</td>
+
+				<th>uid(uid)</th>
+				<td>
+					<input class="span2" name="uid" type="text" value=""/>
+				</td>
+
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+				<input type="button"
+					value="提交" onclick="javascript:$('#safeedit_Form').submit();" /></td>
+			</tr>
 				</table>
 			</form>
 			<label>结果：</label>

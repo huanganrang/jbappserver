@@ -77,6 +77,11 @@ String url = request.getContextPath()+"/api/jbSafetimeController/add";
 						<td>
 							<input class="span2" name="uid" type="text" value=""/>
 						</td>
+
+						<th>description(描述)</th>
+						<td>
+							<input class="span2" name="description" type="text" value=""/>
+						</td>
 						<%-- <th>status(<%=TjbSafetime.ALIAS_STATUS%>，SS01启用.SS02不启用)</th>
                         <td>
                                                 <jb:select dataType="SS" name="status" value=""></jb:select>
