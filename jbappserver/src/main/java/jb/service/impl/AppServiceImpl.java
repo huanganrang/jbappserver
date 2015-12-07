@@ -496,12 +496,18 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			request.setResponse((String)session.getAttribute("response"));
 		} catch (Exception e1) {
 			logger.error("tcp kingweb error", e1);
+			try {
+				MconnMange.getPool2().invalidateObject(session);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			throw new RuntimeException(e1);
 		}finally{
 			if(session!=null){
-				session.close(true);
+				//session.close(true);
+				MconnMange.getPool2().returnObject(session);
 			}
-		}	
+		}
 		String response = request.getResponse();
 		return response;
 	}
