@@ -576,7 +576,7 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 					InputStream is = Apns4jDemo.class.getClassLoader().getResourceAsStream("/apns_pro.p12");
 					config.setKeyStore(is);
 					config.setDevEnv(false);
-					config.setPassword("123123");
+					config.setPassword("kingweb");
 					config.setPoolSize(5);
 					apnsService = ApnsServiceImpl.createInstance(config);
 				}
