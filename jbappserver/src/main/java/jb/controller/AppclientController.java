@@ -425,7 +425,7 @@ public class AppclientController extends BaseController {
 	}
 	@RequestMapping("/savepermcfg")
 	@ResponseBody
-	public Json savepermconfig(HttpServletRequest request) {	
+	public Json savePermConfig(HttpServletRequest request) {
 		Json j = new Json();
 		try{
 			String resourceIds = request.getParameter("resourceIds");
@@ -436,6 +436,19 @@ public class AppclientController extends BaseController {
 		}catch(Exception e){
 			rememberLog(j,e);
 		}		
+		return j;
+	}
+
+	@RequestMapping("/addDeviceToken")
+	@ResponseBody
+	public Json addDeviceToken(String userId,String deviceToken) {
+		Json j = new Json();
+		try{
+			appService.addIosDeviceToken(userId,deviceToken);
+			j.setSuccess(true);
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
 		return j;
 	}
 	private void rememberLog(Json j,Exception e){

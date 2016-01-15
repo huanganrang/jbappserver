@@ -1,17 +1,13 @@
 package jb.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.dbay.apns4j.IApnsService;
+import com.dbay.apns4j.demo.Apns4jDemo;
+import com.dbay.apns4j.impl.ApnsServiceImpl;
+import com.dbay.apns4j.model.ApnsConfig;
+import com.dbay.apns4j.model.Payload;
 import jb.absx.F;
 import jb.absx.Objectx;
 import jb.absx.UUID;
@@ -21,18 +17,12 @@ import jb.listener.Application;
 import jb.mina.MconnMange;
 import jb.mina.MinaRequest;
 import jb.model.TgroupUid;
-import jb.pageModel.BaseData;
-import jb.pageModel.DataGrid;
-import jb.pageModel.PageHelper;
-import jb.pageModel.Resource;
-import jb.pageModel.Tree;
-import jb.pageModel.UserGroup;
+import jb.pageModel.*;
 import jb.service.AppServiceI;
 import jb.service.BasedataServiceI;
 import jb.service.ResourceServiceI;
 import jb.util.Constants;
 import jb.util.JbApi;
-
 import org.androidpn.server.service.UserNotFoundException;
 import org.androidpn.server.xmpp.XmppServer;
 import org.androidpn.server.xmpp.session.ClientSession;
@@ -42,9 +32,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 @Service
 public class AppServiceImpl extends Objectx implements AppServiceI {
@@ -60,7 +50,8 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 	@Autowired
 	private BasedataServiceI basedataService;
 	private String login;
-
+	private static IApnsService apnsService;
+	private static Set<String> appsTokens = new HashSet<String>();
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Tree> allTree(String groupNo) {
@@ -563,8 +554,37 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			notif.sendNotifcationToSession("1234567890", "Admin", "timtle", rs,
 					"uri",
 					usernames.toArray(new ClientSession[usernames.size()]));
+			Payload payload = new Payload();
+			payload.setAlert(rs);
+			/*payload.setAlertBody("alert body");
+			payload.setAlertLocKey("use emotion ok");
+			payload.setAlertLocArgs(new String[]{"3"});
+			payload.setAlertActionLocKey("lbg_loading_text_0");*/
+			payload.setBadge(1);
+			payload.setSound("msg.mp3");
+			for (String appsToken : appsTokens) {
+				getApnsService().sendNotification(appsToken,payload);
+			}
 		}
 	}
+
+	private IApnsService getApnsService(){
+		if (apnsService == null) {
+			synchronized(AppServiceImpl.class){
+				if(apnsService == null){
+					ApnsConfig config = new ApnsConfig();
+					InputStream is = Apns4jDemo.class.getClassLoader().getResourceAsStream("/apns_pro.p12");
+					config.setKeyStore(is);
+					config.setDevEnv(false);
+					config.setPassword("123123");
+					config.setPoolSize(5);
+					apnsService = ApnsServiceImpl.createInstance(config);
+				}
+			}
+		}
+		return apnsService;
+	}
+
 
 	@SuppressWarnings("unchecked")
 	private boolean hasPerm(ClientSession session){
@@ -640,5 +660,9 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 		}	
 		String response = request.getResponse();
 		return response;
+	}
+
+	public void addIosDeviceToken(String userId, String deviceToken) {
+		appsTokens.add(deviceToken);
 	}
 }

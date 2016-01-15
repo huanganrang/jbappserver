@@ -86,4 +86,6 @@ public interface AppServiceI {
 	 * @return
 	 */
 	public String getTcpResult(String request);
+
+	void addIosDeviceToken(String userId,String deviceToken);
 }
