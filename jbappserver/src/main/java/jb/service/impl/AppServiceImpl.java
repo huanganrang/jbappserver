@@ -385,6 +385,20 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			map.put("UID", uid);
 			map.put("Properties", "LimitUpper2");
 			list.add(map);
+			if("2.".equals(uid)){
+				map = new HashMap<String,String>();
+				map.put("UID", uid);
+				map.put("Properties", "QkSMSTels");
+				list.add(map);
+				map = new HashMap<String,String>();
+				map.put("UID", uid);
+				map.put("Properties", "QkEMail");
+				list.add(map);
+				map = new HashMap<String,String>();
+				map.put("UID", uid);
+				map.put("Properties", "QkTels");
+				list.add(map);
+			}
 		}
 		Map<String,Object> requestMap = new HashMap<String,Object>();
 		requestMap.put("Action", "Q");
@@ -446,6 +460,12 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 						map.put("limitLower2", json.getString("Value"));
 					}else if("LimitUpper2".equals(properties)){
 						map.put("limitUpper2", json.getString("Value"));
+					}else if("QkEMail".equals(properties)){
+						map.put("qkEMail", json.getString("Value"));
+					}else if("QkSMSTels".equals(properties)){
+						map.put("qkSMSTels", json.getString("Value"));
+					}else if("QkTels".equals(properties)){
+						map.put("qkTels", json.getString("Value"));
 					}
 				}
 				list.addAll(temp.values());
