@@ -83,6 +83,11 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.1.31</version>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 		<!-- 加入jackson依赖包 -->
 		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> <version>1.9.12</version> </dependency> -->

@@ -451,6 +451,18 @@ public class AppclientController extends BaseController {
 		}
 		return j;
 	}
+	@RequestMapping("/sendMessage")
+	@ResponseBody
+	public Json sendMessage(String message) {
+		Json j = new Json();
+		try{
+			appService.notificationString(message);
+			j.setSuccess(true);
+		}catch(Exception e){
+			rememberLog(j,e);
+		}
+		return j;
+	}
 	private void rememberLog(Json j,Exception e){
 		logger.error("AppclientController erro", e);
 		if (e instanceof IOException) {

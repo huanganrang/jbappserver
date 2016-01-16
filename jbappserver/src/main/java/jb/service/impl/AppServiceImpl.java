@@ -540,31 +540,35 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			if (alist == null || alist.size() == 0)
 				return;
 			rs = JSON.toJSONString(alist);
-			NotificationManager notif = (NotificationManager) XmppServer
-					.getInstance().getBean("notificationManager");
-			Collection<ClientSession> sessions = SessionManager.getInstance()
-					.getSessions();
-			Set<ClientSession> usernames = new HashSet<ClientSession>();
-			for (ClientSession cs : sessions) {
-				if (hasPerm(cs)) {
-					usernames.add(cs);
-				}
+			notificationString(rs);
+		}
+	}
 
+	public void notificationString(String rs) {
+		NotificationManager notif = (NotificationManager) XmppServer
+				.getInstance().getBean("notificationManager");
+		Collection<ClientSession> sessions = SessionManager.getInstance()
+				.getSessions();
+		Set<ClientSession> usernames = new HashSet<ClientSession>();
+		for (ClientSession cs : sessions) {
+			if (hasPerm(cs)) {
+				usernames.add(cs);
 			}
-			notif.sendNotifcationToSession("1234567890", "Admin", "timtle", rs,
-					"uri",
-					usernames.toArray(new ClientSession[usernames.size()]));
-			Payload payload = new Payload();
-			payload.setAlert(rs);
+
+		}
+		notif.sendNotifcationToSession("1234567890", "Admin", "timtle", rs,
+				"uri",
+				usernames.toArray(new ClientSession[usernames.size()]));
+		Payload payload = new Payload();
+		payload.setAlert(rs);
 			/*payload.setAlertBody("alert body");
 			payload.setAlertLocKey("use emotion ok");
 			payload.setAlertLocArgs(new String[]{"3"});
 			payload.setAlertActionLocKey("lbg_loading_text_0");*/
-			payload.setBadge(1);
-			payload.setSound("msg.mp3");
-			for (String appsToken : appsTokens) {
-				getApnsService().sendNotification(appsToken,payload);
-			}
+		payload.setBadge(1);
+		payload.setSound("msg.mp3");
+		for (String appsToken : appsTokens) {
+			getApnsService().sendNotification(appsToken,payload);
 		}
 	}
 

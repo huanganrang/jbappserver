@@ -13,6 +13,8 @@
 				style="padding: 1px"></div>
 			<div title="获取权限接口" data-options="href:'1/refreshPerm.jsp'"
 				style="padding: 1px"></div>
+			<div title="apns注册token" data-options="href:'1/apns.jsp'"
+				 style="padding: 1px"></div>
 			<div title="获取测点值" data-options="href:'1/queryuid.jsp'"
 				style="padding: 1px"></div>
 			<div title="设置测点属性" data-options="href:'1/setuid.jsp'"

@@ -79,6 +79,12 @@ public interface AppServiceI {
 	 * @param rs
 	 */
 	public void notification(String rs);
+
+	/**
+	 * 消息通知
+	 * @param rs
+	 */
+	void notificationString(String rs);
 	
 	/**
 	 * 发送命令，取tcp结果
