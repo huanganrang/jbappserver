@@ -12,6 +12,7 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -86,6 +87,8 @@ public class IpUtil {
 		} catch (ProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return info;
