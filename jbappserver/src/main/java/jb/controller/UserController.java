@@ -58,17 +58,22 @@ public class UserController extends BaseController {
 	public Json login(User user, HttpSession session, HttpServletRequest request) {
 		Json j = new Json();
 		User u = userService.login(user);
-		if (u != null) {
-			j.setSuccess(true);
-			j.setMsg("登陆成功！");
-			SessionInfo sessionInfo = new SessionInfo();
-			BeanUtils.copyProperties(u, sessionInfo);
-			sessionInfo.setIp(IpUtil.getIpAddr(request));			
-			sessionInfo.setResourceList(userService.resourceList(u.getId()));			
-			session.setAttribute(ConfigUtil.getSessionInfoName(), sessionInfo);
-			j.setObj(sessionInfo);
-		} else {
-			j.setMsg("用户名或密码错误！");
+		try{
+			if (u != null) {
+				j.setSuccess(true);
+				j.setMsg("登陆成功！");
+				SessionInfo sessionInfo = new SessionInfo();
+				BeanUtils.copyProperties(u, sessionInfo);
+				sessionInfo.setIp(IpUtil.getIpAddr(request));
+				sessionInfo.setResourceList(userService.resourceList(u.getId()));
+				session.setAttribute(ConfigUtil.getSessionInfoName(), sessionInfo);
+				j.setObj(sessionInfo);
+			} else {
+				j.setMsg("用户名或密码错误！");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			j.setMsg(e.getMessage());
 		}
 		return j;
 	}
