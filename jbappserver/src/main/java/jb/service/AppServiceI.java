@@ -85,6 +85,7 @@ public interface AppServiceI {
 	 * @param rs
 	 */
 	void notificationString(String rs);
+	void notificationString(String rs,boolean dev);
 	
 	/**
 	 * 发送命令，取tcp结果

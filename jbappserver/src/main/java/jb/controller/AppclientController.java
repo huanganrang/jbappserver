@@ -453,10 +453,10 @@ public class AppclientController extends BaseController {
 	}
 	@RequestMapping("/sendMessage")
 	@ResponseBody
-	public Json sendMessage(String message) {
+	public Json sendMessage(String message,Boolean dev) {
 		Json j = new Json();
 		try{
-			appService.notificationString(message);
+			appService.notificationString(message,dev == null?false:dev);
 			j.setSuccess(true);
 		}catch(Exception e){
 			rememberLog(j,e);

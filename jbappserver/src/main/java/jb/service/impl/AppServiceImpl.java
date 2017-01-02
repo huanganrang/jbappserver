@@ -51,6 +51,7 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 	private BasedataServiceI basedataService;
 	private String login;
 	private static IApnsService apnsService;
+	private static IApnsService apnsServiceDev;
 	private static Set<String> appsTokens = new HashSet<String>();
 	@SuppressWarnings("unchecked")
 	@Override
@@ -545,6 +546,9 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 	}
 
 	public void notificationString(String rs) {
+		notificationString(rs,false);
+	}
+	public void notificationString(String rs,boolean dev) {
 		NotificationManager notif = (NotificationManager) XmppServer
 				.getInstance().getBean("notificationManager");
 		Collection<ClientSession> sessions = SessionManager.getInstance()
@@ -568,7 +572,10 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 		payload.setBadge(1);
 		payload.setSound("msg.mp3");
 		for (String appsToken : appsTokens) {
-			getApnsService().sendNotification(appsToken,payload);
+			if(dev)
+				getApnsServiceDev().sendNotification(appsToken,payload);
+			else
+				getApnsService().sendNotification(appsToken,payload);
 		}
 	}
 
@@ -587,6 +594,23 @@ public class AppServiceImpl extends Objectx implements AppServiceI {
 			}
 		}
 		return apnsService;
+	}
+	
+	private IApnsService getApnsServiceDev(){
+		if (apnsServiceDev == null) {
+			synchronized(AppServiceImpl.class){
+				if(apnsServiceDev == null){
+					ApnsConfig config = new ApnsConfig();
+					InputStream is = Apns4jDemo.class.getClassLoader().getResourceAsStream("/apns_dev.p12");
+					config.setKeyStore(is);
+					config.setDevEnv(true);
+					config.setPassword("kingweb");
+					config.setPoolSize(5);
+					apnsServiceDev = ApnsServiceImpl.createInstance(config);
+				}
+			}
+		}
+		return apnsServiceDev;
 	}
 
 

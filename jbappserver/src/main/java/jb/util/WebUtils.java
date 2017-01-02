@@ -29,7 +29,7 @@ import javax.net.ssl.X509TrustManager;
  * 网络工具类。
  * 
  */
-public abstract class WebUtils {
+public abstract class WebUtils{
 
 	private static final String DEFAULT_CHARSET = "utf-8";
 	private static final String METHOD_POST = "POST";

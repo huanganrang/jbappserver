@@ -157,14 +157,14 @@
 		<plugins>
 
 			<!-- 编译的时候使用JDK6和UTF8编码 -->
-			<!-- <plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin> -->
+			</plugin>
 
 		<!-- 	配置Maven插件(mvn jetty:run可以运行项目)
 			<plugin>

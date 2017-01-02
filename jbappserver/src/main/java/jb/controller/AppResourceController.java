@@ -299,4 +299,7 @@ public class AppResourceController extends BaseController {
 		return j;
 	}
 
+	public static void main(String[] args){
+System.out.println(jb.absx.UUID.uuid());
+	}
 }

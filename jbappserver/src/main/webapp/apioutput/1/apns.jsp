@@ -99,6 +99,12 @@ String url = request.getContextPath()+"/appClientController/addDeviceToken";
 						<td align="right" style="width: 180px;"><label>message(测试消息)*：</label></td>
 						<td><input name="message" type="text" class="span2" value=""/></td>
 					</tr>
+					
+					<tr>
+						<td align="right" style="width: 180px;"><label>dev(开发模式)*：</label></td>
+						<td><input name="dev" type="text" class="span2" value="true"/></td>
+					</tr>
+					
 					<tr>
 						<td colspan="2" align="center">
 							<input type="button"
